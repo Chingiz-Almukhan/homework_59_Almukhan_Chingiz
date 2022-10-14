@@ -2,11 +2,11 @@
 {% block title %} Main {% endblock %}
 {% block content %}
     <h4 class="text-center my-3 pb-3">Список Задач</h4>
+    {% include 'partial/search.html' %}
     <form class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
         <div class="col-12">
             <a href="{% url 'add' %}" type="submit" class="btn btn-primary">Добавить</a>
         </div>
-        {% include 'partial/search.html' %}
     </form>
     <table class="table mb-4">
         <thead>
@@ -28,10 +28,15 @@
                 {% endif %} {% endfor %}</td>
                 <td><a href="{% url 'task' article.pk %}" class="btn btn-dark">Подробнее</a></td>
             </tr>
+            {% empty %}
+            <tr><td>
+                Задачи не найдены
+            </td></tr>
         {% endfor %}
         </tbody>
+        {% if is_paginated %}
+            {% include 'partial/pagination.html' %}
+        {% endif %}
     </table>
-    {% if is_paginated %}
-        {% include 'partial/pagination.html' %}
-    {% endif %}
+
 {% endblock %}

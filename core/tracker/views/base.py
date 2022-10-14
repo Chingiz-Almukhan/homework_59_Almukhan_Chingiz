@@ -8,20 +8,11 @@ from tracker.models.issue_tracker import IssueTracker
 from django.db.models import Q
 
 
-# class IndexView(View):
-#     def get(self, request, *args, **kwargs):
-#         articles = IssueTracker.objects.all()
-#         context = {
-#             'articles': articles,
-#         }
-#         return render(request, 'main_page.html', context)
-
-
 class IndexView(ListView):
     template_name = 'main_page.html'
     model = IssueTracker
     context_object_name = 'articles'
-    paginate_by = 3
+    paginate_by = 10
     paginate_orphans = 1
 
     def get(self, request, *args, **kwargs):
