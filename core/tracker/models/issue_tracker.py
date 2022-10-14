@@ -6,6 +6,8 @@ class IssueTracker(models.Model):
     description = models.TextField(verbose_name='Подробное описание', max_length=500, null=True, blank=True)
     status = models.ForeignKey('tracker.Status', related_name='statuses', blank=True, on_delete=models.RESTRICT,
                                verbose_name='Статус', default='1')
+    project = models.ForeignKey('tracker.Project', related_name='projects', blank=True, verbose_name='Проект',
+                                on_delete=models.RESTRICT, default='1')
     type = models.ManyToManyField('tracker.Type', related_name='types', blank=True, verbose_name='Тип', default='1')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     changed_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
