@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class IssueTracker(models.Model):
@@ -11,6 +12,12 @@ class IssueTracker(models.Model):
     type = models.ManyToManyField('tracker.Type', related_name='types', blank=True, verbose_name='Тип', default='1')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     changed_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
+    is_deleted = models.BooleanField(verbose_name='Удалено', default=False, null=False)
+
+    def delete(self, using=None, keep_parents=False):
+        self.deleted_at = timezone.now()
+        self.is_deleted = True
+        self.save()
 
     def __str__(self):
         return f'{self.summary}'

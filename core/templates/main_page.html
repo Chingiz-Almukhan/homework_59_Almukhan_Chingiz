@@ -29,9 +29,11 @@
                 <td><a href="{% url 'task' article.pk %}" class="btn btn-dark">Подробнее</a></td>
             </tr>
             {% empty %}
-            <tr><td>
-                Задачи не найдены
-            </td></tr>
+            <tr>
+                <td>
+                    Задачи не найдены
+                </td>
+            </tr>
         {% endfor %}
         </tbody>
         {% if is_paginated %}

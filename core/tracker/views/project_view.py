@@ -11,6 +11,6 @@ class ProjectDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ProjectDetailView, self).get_context_data(**kwargs)
-        context['tasks'] = IssueTracker.objects.filter(project=self.kwargs['pk'])
-        print(context['tasks'])
+        task = IssueTracker.objects.filter(project=self.kwargs['pk'])
+        context['tasks'] = task.filter(is_deleted=False)
         return context
